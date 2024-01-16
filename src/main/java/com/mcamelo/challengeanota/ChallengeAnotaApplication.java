@@ -2,8 +2,10 @@ package com.mcamelo.challengeanota;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
+@EnableMongoRepositories
 public class ChallengeAnotaApplication {
 
 	public static void main(String[] args) {
