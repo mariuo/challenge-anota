@@ -11,7 +11,7 @@ public class MongoDBConfig {
 
     @Bean
     public MongoDatabaseFactory mongoConfigure(){
-        return new SimpleMongoClientDatabaseFactory("mongodb://root:admin@localhost:27017/?authMechanism=DEFAULT/products-catalog");
+        return new SimpleMongoClientDatabaseFactory("mongodb://root:admin@localhost:27017/products-catalog");
     }
     @Bean
     public MongoTemplate mongoTemplate(){
