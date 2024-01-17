@@ -7,18 +7,23 @@ import com.mcamelo.challengeanota.domain.products.Product;
 import com.mcamelo.challengeanota.domain.products.ProductDTO;
 import com.mcamelo.challengeanota.domain.products.exceptions.ProductNotFoundException;
 import com.mcamelo.challengeanota.repositories.ProductRepository;
+import com.mcamelo.challengeanota.services.aws.AwsSnsService;
+import com.mcamelo.challengeanota.services.aws.MessageDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ProductService {
-    private ProductRepository repository;
-    private CategoryService categoryService;
+    private final ProductRepository repository;
+    private final CategoryService categoryService;
 
-    public ProductService(ProductRepository repository, CategoryService categoryService) {
+    private final AwsSnsService snsService;
+
+    public ProductService(ProductRepository repository, CategoryService categoryService, AwsSnsService snsService) {
         this.repository = repository;
         this.categoryService = categoryService;
+        this.snsService = snsService;
     }
 
     public Product create(ProductDTO productDTO){
@@ -27,6 +32,7 @@ public class ProductService {
         Product newProduct = new Product(productDTO);
         newProduct.setCategory(category);
         this.repository.save(newProduct);
+        this.snsService.publish(new MessageDTO(newProduct.getOwnerId()));
         return newProduct;
     }
 
@@ -45,6 +51,7 @@ public class ProductService {
         if(!(productDTO.price() == null)) product.setPrice(productDTO.price());
 
         this.repository.save(product);
+        this.snsService.publish(new MessageDTO(product.getOwnerId()));
 
         return product;
     }
