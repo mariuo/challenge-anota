@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "products")
+@Document(collection = "products")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,5 +20,12 @@ public class Product {
     private String ownerId;
     private Integer price;
     private Category category;
+
+    public Product(ProductDTO dto){
+        this.title = dto.title();
+        this.description = dto.description();
+        this.ownerId = dto.ownerId();
+        this.price = dto.price();
+    }
 
 }
