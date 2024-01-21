@@ -3,7 +3,6 @@ package com.mcamelo.challengeanota.controllers;
 import com.mcamelo.challengeanota.domain.category.Category;
 import com.mcamelo.challengeanota.domain.category.CategoryDTO;
 import com.mcamelo.challengeanota.services.CategoryService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

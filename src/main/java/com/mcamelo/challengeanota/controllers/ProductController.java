@@ -1,9 +1,11 @@
 package com.mcamelo.challengeanota.controllers;
 
+import com.amazonaws.services.sqs.model.Message;
+import com.mcamelo.challengeanota.config.aws.AwsSqsConfig;
 import com.mcamelo.challengeanota.domain.products.Product;
 import com.mcamelo.challengeanota.domain.products.ProductDTO;
 import com.mcamelo.challengeanota.services.ProductService;
-import jakarta.websocket.server.PathParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,8 @@ import java.util.List;
 @RequestMapping("/api/product")
 public class ProductController {
     private ProductService service;
+    @Autowired
+    private AwsSqsConfig awsSqsConfig;
 
     public ProductController(ProductService service){
         this.service = service;
@@ -39,5 +43,10 @@ public class ProductController {
     public ResponseEntity<Product> delete(@PathVariable("id") String id){
         this.service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/consumer")
+    public List<Message> consumer2(){
+//        awsSqsConfig.printUrls();
+        return awsSqsConfig.consumeMessageFromSQS();
     }
 }

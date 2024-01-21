@@ -17,7 +17,6 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository repository;
     private final CategoryService categoryService;
-
     private final AwsSnsService snsService;
 
     public ProductService(ProductRepository repository, CategoryService categoryService, AwsSnsService snsService) {
