@@ -1,7 +1,6 @@
 package com.mcamelo.challengeanota.services;
 
 
-import com.mcamelo.challengeanota.domain.category.Category;
 import com.mcamelo.challengeanota.domain.category.exceptions.CategoryNotFoundException;
 import com.mcamelo.challengeanota.domain.products.Product;
 import com.mcamelo.challengeanota.domain.products.ProductDTO;
@@ -31,7 +30,7 @@ public class ProductService {
         Product newProduct = new Product(productDTO);
 
         this.repository.save(newProduct);
-        this.snsService.publish(new MessageDTO(newProduct.getOwnerId()));
+        this.snsService.publish(new MessageDTO(newProduct.toString()));
         return newProduct;
     }
 
@@ -51,7 +50,7 @@ public class ProductService {
         if(!(productDTO.price() == null)) product.setPrice(productDTO.price());
 
         this.repository.save(product);
-        this.snsService.publish(new MessageDTO(product.getOwnerId()));
+        this.snsService.publish(new MessageDTO(product.toString()));
 
         return product;
     }
