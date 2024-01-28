@@ -19,13 +19,14 @@ public class Product {
     private String description;
     private String ownerId;
     private Integer price;
-    private Category category;
+    private String category;
 
     public Product(ProductDTO dto){
         this.title = dto.title();
         this.description = dto.description();
         this.ownerId = dto.ownerId();
         this.price = dto.price();
+        this.category = dto.categoryId();
     }
 
 }
